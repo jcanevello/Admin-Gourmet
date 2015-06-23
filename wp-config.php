@@ -22,7 +22,7 @@ define('DB_NAME', 'gourmet');
 define('DB_USER', 'root');
 
 /** MySQL database password */
-define('DB_PASSWORD', '');
+define('DB_PASSWORD', '123456');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
@@ -68,7 +68,11 @@ $table_prefix  = 'g_';
  * It is strongly recommended that plugin and theme developers use WP_DEBUG
  * in their development environments.
  */
-define('WP_DEBUG', false);
+define('WP_DEBUG', true);
+
+define( 'JETPACK_DEV_DEBUG', true);
+//add_filter( 'jetpack_development_mode', '__return_true' ); // para plugins
+
 
 /* That's all, stop editing! Happy blogging. */
 
