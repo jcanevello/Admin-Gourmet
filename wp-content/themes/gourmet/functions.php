@@ -20,11 +20,11 @@ function restaurant_controller_path( $default_path ) {
 add_filter( 'json_api_controllers', 'custom_controllers' );
 add_filter( 'json_api_android_controller_path', 'restaurant_controller_path' );
 
-function save_data($table, $data, $post_id)
+function save_data($table, $data, $condicion)
 {
     global $wpdb;
     
-    $result = $wpdb->update($table,$data,array('id' => $post_id));
+    $result = $wpdb->update($table,$data, $condicion);
     
     if (!$result)
     {
