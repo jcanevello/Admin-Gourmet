@@ -16,6 +16,7 @@ function create_post_type()
       'rewrite' => array( 'slug' => 'restaurant' ),
       'menu_icon' => 'dashicons-store',
       'supports' => array('title', 'thumbnail',),
+      'capability_type'    => 'post',
     )
   );
 }
@@ -58,6 +59,41 @@ function formulario_restaurant_content($post)
         <input name="r-latitud" type="number" step="any" value="<?php echo isset($result[0]) ? $result[0]->latitud : ''  ?>">
         <label for="r-longitud">Longitud:</label>
         <input name="r-longitud" type="number" step="any" value="<?php echo isset($result[0]) ? $result[0]->longitud : ''  ?>"><br><br>
+        <hr>
+        <h2>Platos</h2>
+        <a href="/wp-admin/post-new.php?post_type=plato&idrestaurante=<?php echo $post->ID ?>">Añadir plato</a>
+        
+        <?php
+        $aPlato = $wpdb->get_results('SELECT * FROM `plato` WHERE `estado` = 1 and `idrestaurante` = ' .$post->ID);
+        ?>
+        <br><br>
+        <table class="wp-list-table widefat fixed striped">
+            <thead>
+                <tr>
+                    <td>Nombre</td>
+                    <td>Tipo de menú</td>
+                    <td>Precio</td>
+                    <td>Tipo de plato</td>
+                    <td>Imagen</td>
+                    <td>Acciones</td>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($aPlato as $oPlato): ?>
+                <tr>
+                    <td><?php echo $oPlato->nombre ?></td>
+                    <td><?php echo $oPlato->tipo ?></td>
+                    <td><?php echo $oPlato->precio ?></td>
+                    <td><?php echo $oPlato->isentrada ?></td>
+                    <td><img src="<?php echo $oPlato->foto ?>" ></td>
+                    <td>
+                        <a href="/wp-admin/post.php?post=<?php echo $oPlato->idplato ?>&action=edit&idrestaurante=<?php echo $post->ID ?>" >Editar</a><br>
+                    </td>
+                </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+            
         
     </div>
 

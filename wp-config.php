@@ -72,6 +72,7 @@ define('WP_DEBUG', true);
 
 define( 'JETPACK_DEV_DEBUG', true);
 //add_filter( 'jetpack_development_mode', '__return_true' ); // para plugins
+define("FS_METHOD","direct");
 
 
 /* That's all, stop editing! Happy blogging. */

@@ -5,6 +5,7 @@ if ( function_exists( 'add_theme_support' ) )
 
 //include get_template_directory() . '/post-type/restaurant.php';
 get_template_part('post-type/restaurant');
+get_template_part('post-type/plato');
 
 function custom_controllers( $controllers ) {
   // JSON API will look for classes based on the names given here

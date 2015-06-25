@@ -39,7 +39,25 @@ final class JSON_API_Android_Controller {
         $query = 'select `idrestaurante`, `nombre`, `telefonos`, `tipo_restaurante`, `horario_restaurante`, `direccion`, `latitud`, `longitud`, `foto`, '
                 . '(DEGREES(acos(sin(radians('.$latitud.')) * sin(radians(`latitud`)) + cos(radians('.$latitud.')) *  cos(radians(`latitud`)) * cos(radians('.$longitud.') - radians(`longitud`)))) * 111133.84) as distancia '
                 . 'from restaurant '
+                . 'where `estado` = 1 '
                 . 'having distancia <= 1000'; // 1KM
+        
+//        echo var_dump($query);die();
+
+        $result = $wpdb->get_results($query);
+        
+        return array(
+            'count' => count($result),
+            'results' => $result
+        );
+    }
+    
+    public function platos() 
+    {
+        global $wpdb;
+        $idrestaurante = $_POST['idrestaurante'];
+
+        $query = 'SELECT `idplato`,`nombre`,`tipo`, `precio`, `foto`, `isentrada`, `idrestaurante` FROM `plato` WHERE `estado` = 1 and `idrestaurante` = ' .$idrestaurante; // 1KM
         
 //        echo var_dump($query);die();
 
