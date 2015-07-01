@@ -40,6 +40,7 @@ function formulario_plato_content($post)
     wp_nonce_field(basename(__FILE__), "formulario_plato_content-nonce");
     global $wpdb;
     $result = $wpdb->get_results('SELECT `tipo`, `precio`, `isentrada`, `idrestaurante` FROM `plato` WHERE `idplato` = ' .$post->ID);
+//    echo var_dump($post);
     $idrestaurante = isset($result[0]->idrestaurante) ? $result[0]->idrestaurante : $_GET['idrestaurante'];
 ?>
     <div>  
@@ -122,11 +123,17 @@ add_action("save_post", "formulario_plato_save");
 
 function trash_plato($post_id)
 {
-    global $wpdb;
-    save_data('plato', array('estado' => 0), array('idplato' => $post_id));
-    $result = $wpdb->get_results('SELECT `idrestaurante` FROM `plato` WHERE `idplato` = ' .$post_id);
-    header('Location: /wp-admin/post.php?post='.current($result)->idrestaurante.'&action=edit');
-    exit();
+    $plato = get_post($post_id);
+    if($plato->post_type == 'plato')
+    {
+        /*global $wpdb;
+        wp_reset_query();
+        save_data('plato', array('estado' => 0), array('idplato' => $post_id));
+        $result = $wpdb->get_results('SELECT `idrestaurante` FROM `plato` WHERE `idplato` = ' .$post_id);
+        header('Location: /wp-admin/post.php?post='.current($result)->idrestaurante.'&action=edit');
+        exit();*/
+    }
+    wp_reset_query();
 }
 
 add_action('wp_trash_post', 'trash_plato');

@@ -27,6 +27,7 @@ function save_data($table, $data, $condicion)
     
     $result = $wpdb->update($table,$data, $condicion);
     
+    
     if (!$result)
     {
         $wpdb->insert($table,$data);
