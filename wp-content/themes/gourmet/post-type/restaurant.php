@@ -109,7 +109,6 @@ function formulario_restaurant_content($post)
                     <?php
                         $aReservas = $wpdb->get_results('SELECT * FROM `reserva` WHERE `estado` = 1 and `idrestaurante` = ' .$post->ID);
                     ?>
-                    <br><br>
                     <table class="wp-list-table widefat fixed striped">
                         <thead>
                             <tr>
