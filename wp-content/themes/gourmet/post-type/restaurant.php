@@ -60,41 +60,89 @@ function formulario_restaurant_content($post)
         <label for="r-longitud">Longitud:</label>
         <input name="r-longitud" type="number" step="any" value="<?php echo isset($result[0]) ? $result[0]->longitud : ''  ?>"><br><br>
         <hr>
-        <h2>Platos</h2>
-        <a href="/wp-admin/post-new.php?post_type=plato&idrestaurante=<?php echo $post->ID ?>">Añadir plato</a>
         
-        <?php
-        $aPlato = $wpdb->get_results('SELECT * FROM `plato` WHERE `estado` = 1 and `idrestaurante` = ' .$post->ID);
-        ?>
-        <br><br>
-        <table class="wp-list-table widefat fixed striped">
-            <thead>
-                <tr>
-                    <td>Nombre</td>
-                    <td>Tipo de menú</td>
-                    <td>Precio</td>
-                    <td>Tipo de plato</td>
-                    <td>Imagen</td>
-                    <td>Acciones</td>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($aPlato as $oPlato): ?>
-                <tr>
-                    <td><?php echo $oPlato->nombre ?></td>
-                    <td><?php echo $oPlato->tipo ?></td>
-                    <td><?php echo $oPlato->precio ?></td>
-                    <td><?php echo $oPlato->isentrada ?></td>
-                    <td><img src="<?php echo $oPlato->foto ?>" ></td>
-                    <td>
-                        <a href="/wp-admin/post.php?post=<?php echo $oPlato->idplato ?>&action=edit&idrestaurante=<?php echo $post->ID ?>" >Editar</a><br>
-                    </td>
-                </tr>
-                <?php endforeach ?>
-            </tbody>
-        </table>
-            
-        
+        <div class="gtabs-panel">
+            <div class="gtab">
+                <input type="radio" id="gtab1" class="gtab-radio" name="gtabs" checked="">
+                <label for="gtab1" class="gtab-label">Platos</label>
+                <div class="gcontent">
+                    <h2>Platos</h2>
+                    <a href="/wp-admin/post-new.php?post_type=plato&idrestaurante=<?php echo $post->ID ?>">Añadir plato</a>
+
+                    <?php
+                    $aPlato = $wpdb->get_results('SELECT * FROM `plato` WHERE `estado` = 1 and `idrestaurante` = ' .$post->ID);
+                    ?>
+                    <br><br>
+                    <table class="wp-list-table widefat fixed striped">
+                        <thead>
+                            <tr>
+                                <td>Nombre</td>
+                                <td>Tipo de menú</td>
+                                <td>Precio</td>
+                                <td>Tipo de plato</td>
+                                <td>Imagen</td>
+                                <td>Acciones</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($aPlato as $oPlato): ?>
+                            <tr>
+                                <td><?php echo $oPlato->nombre ?></td>
+                                <td><?php echo $oPlato->tipo ?></td>
+                                <td><?php echo $oPlato->precio ?></td>
+                                <td><?php echo $oPlato->isentrada ?></td>
+                                <td><img src="<?php echo $oPlato->foto ?>" ></td>
+                                <td>
+                                    <a href="/wp-admin/post.php?post=<?php echo $oPlato->idplato ?>&action=edit&idrestaurante=<?php echo $post->ID ?>" >Editar</a><br>
+                                </td>
+                            </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="gtab">
+                <input type="radio" id="gtab2" class="gtab-radio" name="gtabs">
+                <label for="gtab2" class="gtab-label">Reservas</label>
+                <div class="gcontent">
+                    <h2>Reservas</h2>
+                    <?php
+                        $aReservas = $wpdb->get_results('SELECT * FROM `reserva` WHERE `estado` = 1 and `idrestaurante` = ' .$post->ID);
+                    ?>
+                    <br><br>
+                    <table class="wp-list-table widefat fixed striped">
+                        <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>Nombre</td>
+                                <td>Apellidos</td>
+                                <td>DNI</td>
+                                <td>Fecha</td>
+                                <td>Hora</td>
+                                <td>#Personas</td>
+                                <td>Teléfono</td>
+                                <td>Email</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($aReservas as $oReservas): ?>
+                            <tr>
+                                <td><?php echo $oReservas->idreserva ?></td>
+                                <td><?php echo $oReservas->nombreUsuario ?></td>
+                                <td><?php echo $oReservas->apellidosUsuario ?></td>
+                                <td><?php echo $oReservas->dni ?></td>
+                                <td><?php echo $oReservas->fechaReserva ?></td>
+                                <td><?php echo $oReservas->horaReserva ?></td>
+                                <td><?php echo $oReservas->numPersonas ?></td>
+                                <td><?php echo $oReservas->telefono ?></td>
+                                <td><?php echo $oReservas->email ?></td>
+                            </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><hr>
     </div>
 
     <script type="text/javascript">
