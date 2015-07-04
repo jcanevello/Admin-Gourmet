@@ -91,7 +91,7 @@ function formulario_restaurant_content($post)
                                 <td><?php echo $oPlato->tipo ?></td>
                                 <td><?php echo $oPlato->precio ?></td>
                                 <td><?php echo $oPlato->isentrada ?></td>
-                                <td><img src="<?php echo $oPlato->foto ?>" ></td>
+                                <td><img src="<?php echo $oPlato->foto ?>" width="100%"></td>
                                 <td>
                                     <a href="/wp-admin/post.php?post=<?php echo $oPlato->idplato ?>&action=edit&idrestaurante=<?php echo $post->ID ?>" >Editar</a><br>
                                 </td>
