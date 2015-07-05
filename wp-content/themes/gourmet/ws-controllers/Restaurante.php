@@ -206,7 +206,6 @@ final class JSON_API_Restaurante_Controller {
             return array("status" => false);
 
         $query = 'select `idrestaurante`, `nombre`, `telefonos`, `tipo_restaurante`, `horario_restaurante`, `direccion`, `latitud`, `longitud`, `foto` '
-                . '(DEGREES(acos(sin(radians('.$latitud.')) * sin(radians(`latitud`)) + cos(radians('.$latitud.')) *  cos(radians(`latitud`)) * cos(radians('.$longitud.') - radians(`longitud`)))) * 111133.84) as distancia '
                 . 'from restaurant '
                 . 'where `idrestaurante` = ' . $idRestaurante;
         
@@ -216,6 +215,7 @@ final class JSON_API_Restaurante_Controller {
             $result[$key]->idrestaurante = (int)$result[$key]->idrestaurante;
             $result[$key]->latitud = (double)$result[$key]->latitud;
             $result[$key]->longitud = (double)$result[$key]->longitud;
+            $result[$key]->distancia = 0;
         }
         
         return array(
