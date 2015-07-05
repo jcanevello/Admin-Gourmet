@@ -126,12 +126,12 @@ function trash_plato($post_id)
     $plato = get_post($post_id);
     if($plato->post_type == 'plato')
     {
-        /*global $wpdb;
+        global $wpdb;
         wp_reset_query();
         save_data('plato', array('estado' => 0), array('idplato' => $post_id));
         $result = $wpdb->get_results('SELECT `idrestaurante` FROM `plato` WHERE `idplato` = ' .$post_id);
         header('Location: /wp-admin/post.php?post='.current($result)->idrestaurante.'&action=edit');
-        exit();*/
+        exit();
     }
     wp_reset_query();
 }
