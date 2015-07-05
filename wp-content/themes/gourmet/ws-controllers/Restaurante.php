@@ -37,7 +37,7 @@ final class JSON_API_Restaurante_Controller {
         $longitud = isset($data->longitud) ? $data->longitud : NULL;
         
         if (empty($latitud) || empty($longitud)) 
-            return array("status" => 'error');
+            return array("status" => false);
 
 //        $latitud = -11.995679;
 //        $longitud = -77.008658;
@@ -52,7 +52,7 @@ final class JSON_API_Restaurante_Controller {
         
         return array(
             'count' => count($result),
-            'results' => $result
+            'results' => print $result
         );
     }
     
@@ -65,7 +65,7 @@ final class JSON_API_Restaurante_Controller {
         $idrestaurante = isset($data->idRestaurante) ? $data->idRestaurante : NULL ;
                        
         if(empty($idrestaurante))
-            return array("status" => 'error');
+            return array("status" => false);
 
         $query = 'SELECT `idplato`,`nombre`,`tipo`, `precio`, `foto`, `isentrada`, `idrestaurante` FROM `plato` WHERE `estado` = 1 and `idrestaurante` = ' .$idrestaurante; // 1KM
         
@@ -89,9 +89,9 @@ final class JSON_API_Restaurante_Controller {
         $numeroPersonas = isset($data->numeroPersonas) ? $data->numeroPersonas : NULL ;
         
         if(empty($idRestaurante) || empty($fecha) || empty($hora) || empty($numeroPersonas)) 
-            return array("status" => 'false');
+            return array("status" => false);
         
-        return array("status" => 'true');
+        return array("status" => true);
     }
     
     public function guardar_reserva()
@@ -112,8 +112,8 @@ final class JSON_API_Restaurante_Controller {
         $telefono = isset($data->telefono) ? $data->telefono : NULL ;
         $idRestaurante = isset($data->idRestaurante) ? $data->idRestaurante : NULL;
         
-        if(empty($fecha) || empty($hora) || empty($numeroPersonas) || empty($pedido) || empty($nombreUsuario) || empty($apellidoUsuario) || empty($email) || empty($dni) || empty($telefono) || empty($idRestaurante))
-            return array("status" => 'error');
+        if(empty($fecha) || empty($hora) || empty($numeroPersonas) || empty($pedido) || empty($nombreUsuario) || empty($apellidoUsuario) || empty($email) || empty($dni) || empty($idRestaurante))
+            return array("status" => false);
         
         $data = array(
                 'idreserva' => $idReserva,
@@ -131,9 +131,9 @@ final class JSON_API_Restaurante_Controller {
             );
         
         if(! $wpdb->insert('reserva', $data))
-            return array("status" => 'error'); 
+            return array("status" => false); 
             
-        return array("status" => 'ok'); 
+        return array("status" => TRUE); 
     }
     
     public function actualizar_reserva()
@@ -148,7 +148,7 @@ final class JSON_API_Restaurante_Controller {
         $numeroPersonas = isset($data->numeroPersonas) ? $data->numeroPersonas : NULL ;
         
         if(empty($idReserva) || empty($fecha) || empty($hora) || empty($numeroPersonas))
-            return array("status" => 'error'); 
+            return array("status" => false); 
         
         $data = array(
                 'fechaReserva' => $fecha,
@@ -159,9 +159,9 @@ final class JSON_API_Restaurante_Controller {
         $condicion = array('idreserva' => $idReserva);
         
         if(!$wpdb->update('reserva',$data, $condicion))
-            return array("status" => 'error'); 
+            return array("status" => false); 
         
-        return array("status" => 'ok'); 
+        return array("status" => true); 
     }
     
     public function eliminar_reserva()
@@ -173,12 +173,12 @@ final class JSON_API_Restaurante_Controller {
         $idReserva = isset($data->idReserva) ? $data->idReserva : NULL ;
         
         if(empty($idReserva))
-           return array("status" => 'error'); 
+           return array("status" => false); 
         
         if(!$wpdb->delete('reserva', array('idreserva' => $idReserva)))
-            return array("status" => 'error'); 
+            return array("status" => false); 
         
-        return array("status" => 'ok'); 
+        return array("status" => true); 
         
     }
 }
