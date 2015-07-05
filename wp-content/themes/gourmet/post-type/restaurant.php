@@ -143,15 +143,6 @@ function formulario_restaurant_content($post)
             </div>
         </div><hr>
     </div>
-
-    <script type="text/javascript">
-        /*var buttom_media = document.getElementsByClassName("media-button-select");
-        console.log(buttom_media)
-        buttom_media.onclick = function(){
-            var setting = document.getElementsByClassName("setting");
-            console.log('ssss')
-        };*/
-    </script>
     
 <?php } 
 

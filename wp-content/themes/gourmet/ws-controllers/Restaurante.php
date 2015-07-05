@@ -30,8 +30,11 @@ final class JSON_API_Restaurante_Controller {
     public function get_restaurantes() 
     {
         global $wpdb;
-        $latitud = isset($_POST['latitud']) ? $_POST['latitud'] : NULL;
-        $longitud = isset($_POST['longitud']) ? $_POST['longitud'] : NULL;
+        
+        $data = json_decode(file_get_contents('php://input'));
+        
+        $latitud = isset($data->latitud) ? $data->latitud : NULL;
+        $longitud = isset($data->longitud) ? $data->longitud : NULL;
         
         if (empty($latitud) || empty($longitud)) 
             return array("status" => 'error');
@@ -45,8 +48,6 @@ final class JSON_API_Restaurante_Controller {
                 . 'where `estado` = 1 '
                 . 'having distancia <= 1000'; // 1KM
         
-//        echo var_dump($query);die();
-
         $result = $wpdb->get_results($query);
         
         return array(
@@ -58,8 +59,11 @@ final class JSON_API_Restaurante_Controller {
     public function get_platos() 
     {
         global $wpdb;
-        $idrestaurante = isset($_POST['idRestaurante']) ? $_POST['idRestaurante'] : NULL ;
         
+        $data = json_decode(file_get_contents('php://input'));
+        
+        $idrestaurante = isset($data->idRestaurante) ? $data->idRestaurante : NULL ;
+                       
         if(empty($idrestaurante))
             return array("status" => 'error');
 
@@ -77,10 +81,12 @@ final class JSON_API_Restaurante_Controller {
     
     public function consultar_reserva()
     {
-        $idRestaurante = isset($_POST['idRestaurante']) ? $_POST['idRestaurante'] : NULL;
-        $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : NULL ;
-        $hora = isset($_POST['hora']) ? $_POST['hora'] : NULL ;
-        $numeroPersonas = isset($_POST['numeroPersonas']) ? $_POST['numeroPersonas'] : NULL ;
+        $data = json_decode(file_get_contents('php://input'));
+        
+        $idRestaurante = isset($data->idRestaurante) ? $data->idRestaurante : NULL;
+        $fecha = isset($data->fecha) ? $data->fecha : NULL ;
+        $hora = isset($data->hora) ? $data->hora : NULL ;
+        $numeroPersonas = isset($data->numeroPersonas) ? $data->numeroPersonas : NULL ;
         
         if(empty($idRestaurante) || empty($fecha) || empty($hora) || empty($numeroPersonas)) 
             return array("status" => 'false');
@@ -92,17 +98,19 @@ final class JSON_API_Restaurante_Controller {
     {  
         global $wpdb;
         
-        $idReserva = isset($_POST['idReserva']) ? $_POST['idReserva'] : NULL ;
-        $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : NULL ;
-        $hora = isset($_POST['hora']) ? $_POST['hora'] : NULL ;
-        $numeroPersonas = isset($_POST['numeroPersonas']) ? $_POST['numeroPersonas'] : NULL ;
-        $pedido = isset($_POST['pedido']) ? $_POST['pedido'] : NULL ;
-        $nombreUsuario = isset($_POST['nombreUsuario']) ? $_POST['nombreUsuario'] : NULL ;
-        $apellidoUsuario = isset($_POST['apellidoUsuario']) ? $_POST['apellidoUsuario'] : NULL ;
-        $email = isset($_POST['email']) ? $_POST['email'] : NULL ;
-        $dni = isset($_POST['dni']) ? $_POST['dni'] : NULL ;
-        $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : NULL ;
-        $idRestaurante = isset($_POST['idRestaurante']) ? $_POST['idRestaurante'] : NULL;
+        $data = json_decode(file_get_contents('php://input'));
+        
+        $idReserva = isset($data->idReserva) ? $data->idReserva : NULL ;
+        $fecha = isset($data->fecha) ? $data->fecha : NULL ;
+        $hora = isset($data->hora) ? $data->hora : NULL ;
+        $numeroPersonas = isset($data->numeroPersonas) ? $data->numeroPersonas : NULL ;
+        $pedido = isset($data->pedido) ? $data->pedido : NULL ;
+        $nombreUsuario = isset($data->nombreUsuario) ? $data->nombreUsuario : NULL ;
+        $apellidoUsuario = isset($data->apellidoUsuario) ? $data->apellidoUsuario : NULL ;
+        $email = isset($data->email) ? $data->email : NULL ;
+        $dni = isset($data->dni) ? $data->dni : NULL ;
+        $telefono = isset($data->telefono) ? $data->telefono : NULL ;
+        $idRestaurante = isset($data->idRestaurante) ? $data->idRestaurante : NULL;
         
         if(empty($fecha) || empty($hora) || empty($numeroPersonas) || empty($pedido) || empty($nombreUsuario) || empty($apellidoUsuario) || empty($email) || empty($dni) || empty($telefono) || empty($idRestaurante))
             return array("status" => 'error');
@@ -132,10 +140,12 @@ final class JSON_API_Restaurante_Controller {
     {
         global $wpdb;
         
-        $idReserva = isset($_POST['idReserva']) ? $_POST['idReserva'] : NULL ;
-        $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : NULL ;
-        $hora = isset($_POST['hora']) ? $_POST['hora'] : NULL ;
-        $numeroPersonas = isset($_POST['numeroPersonas']) ? $_POST['numeroPersonas'] : NULL ;
+        $data = json_decode(file_get_contents('php://input'));
+        
+        $idReserva = isset($data->idReserva) ? $data->idReserva : NULL ;
+        $fecha = isset($data->fecha) ? $data->fecha : NULL ;
+        $hora = isset($data->hora) ? $data->hora : NULL ;
+        $numeroPersonas = isset($data->numeroPersonas) ? $data->numeroPersonas : NULL ;
         
         if(empty($idReserva) || empty($fecha) || empty($hora) || empty($numeroPersonas))
             return array("status" => 'error'); 
@@ -158,7 +168,9 @@ final class JSON_API_Restaurante_Controller {
     {
         global $wpdb;
         
-        $idReserva = isset($_POST['idReserva']) ? $_POST['idReserva'] : NULL ;
+        $data = json_decode(file_get_contents('php://input'));
+        
+        $idReserva = isset($data->idReserva) ? $data->idReserva : NULL ;
         
         if(empty($idReserva))
            return array("status" => 'error'); 
