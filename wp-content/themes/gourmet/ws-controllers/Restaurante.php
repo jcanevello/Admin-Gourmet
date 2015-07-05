@@ -54,7 +54,6 @@ final class JSON_API_Restaurante_Controller {
             $result[$key]->idrestaurante = (int)$result[$key]->idrestaurante;
             $result[$key]->latitud = (double)$result[$key]->latitud;
             $result[$key]->longitud = (double)$result[$key]->longitud;
-            $result[$key]->distancia = (double)$result[$key]->distancia;
         }
         
         return array(
@@ -84,6 +83,7 @@ final class JSON_API_Restaurante_Controller {
             $result[$key]->isentrada = (int)$result[$key]->isentrada;
             $result[$key]->idrestaurante = (int)$result[$key]->idrestaurante;
         }
+
         
         return array(
             'count' => count($result),
@@ -215,7 +215,7 @@ final class JSON_API_Restaurante_Controller {
             $result[$key]->idrestaurante = (int)$result[$key]->idrestaurante;
             $result[$key]->latitud = (double)$result[$key]->latitud;
             $result[$key]->longitud = (double)$result[$key]->longitud;
-            $result[$key]->distancia = 0;
+            $result[$key]->distancia = null;
         }
         
         return array(
