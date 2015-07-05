@@ -45,14 +45,14 @@ function formulario_plato_content($post)
 ?>
     <div>  
         <label for="p-tipo">Tipo de comida:</label>
-        <input name="p-tipo" type="text" value="<?php echo isset($result[0]) ? $result[0]->tipo : ''  ?>"><br><br>
+        <input name="p-tipo" type="text" value="<?php echo isset($result[0]) ? $result[0]->tipo : ''  ?>" required="true"><br><br>
         
         <label for="p-precio">Precio:</label>        
-        <input name="p-precio" type="number" step="any" value="<?php echo isset($result[0]) ? $result[0]->precio : '' ?>"><br><br>
+        <input name="p-precio" type="number" step="any" value="<?php echo isset($result[0]) ? $result[0]->precio : '' ?>" required="true"><br><br>
         
         <h4>Tipo de plato</h4>
         <label>
-            <input type="radio" name="isentrada" value="1" <?php echo (isset($result[0])&& $result[0]->isentrada == 1) ? ' checked' : '' ?>>
+            <input type="radio" name="isentrada" value="1" <?php echo (isset($result[0])&& $result[0]->isentrada == 1) ? ' checked' : '' ?> <?php echo (!isset($result[0])) ? 'checked' : '' ?>>
             Segundo
         </label><br>
         <label>
@@ -83,7 +83,7 @@ function formulario_plato_save($post_id)
     $isentrada = '';
     $idrestaurante = '';
     $img_path = wp_get_attachment_image_src(get_post_thumbnail_id($post_id), 'thumbnail');
-    $img = empty($img_path) ? '' : current($img_path);
+    $img = empty($img_path) ? home_url() . '/wp-content/themes/gourmet/img/imagen-plato-default.png' : current($img_path);
     
 //    echo var_dump($img);
 //    die();
