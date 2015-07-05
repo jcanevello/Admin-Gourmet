@@ -48,6 +48,8 @@ function my_custom_admin_style() {
     }
     ?>
     <style>
+        #menu-posts,
+        #menu-comments,
         #menu-posts-plato {
             display: none;
         }
