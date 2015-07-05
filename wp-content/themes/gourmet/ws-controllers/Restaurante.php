@@ -75,6 +75,8 @@ final class JSON_API_Restaurante_Controller {
 
         $query = 'SELECT `idplato`,`nombre`,`tipo`, `precio`, `foto`, `isentrada`, `idrestaurante` FROM `plato` WHERE `estado` = 1 and `idrestaurante` = ' .$idrestaurante; // 1KM
         
+        $result = $wpdb->get_results($query);
+        
         foreach ($result as $key => $value) {
             $result[$key]->idplato = (int)$result[$key]->idplato;
             $result[$key]->precio = (double)$result[$key]->precio;
@@ -82,7 +84,6 @@ final class JSON_API_Restaurante_Controller {
             $result[$key]->idrestaurante = (int)$result[$key]->idrestaurante;
         }
 
-        $result = $wpdb->get_results($query);
         
         return array(
             'count' => count($result),
