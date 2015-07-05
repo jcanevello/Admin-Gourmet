@@ -215,7 +215,7 @@ final class JSON_API_Restaurante_Controller {
             $result[$key]->idrestaurante = (int)$result[$key]->idrestaurante;
             $result[$key]->latitud = (double)$result[$key]->latitud;
             $result[$key]->longitud = (double)$result[$key]->longitud;
-            $result[$key]->distancia = null;
+            $result[$key]->distancia = 0;
         }
         
         return array(
