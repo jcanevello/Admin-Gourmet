@@ -37,10 +37,10 @@ final class JSON_API_Restaurante_Controller {
         $longitud = isset($data->longitud) ? $data->longitud : NULL;
         
         if (empty($latitud) || empty($longitud)) 
-            return array("status" => false);
+//            return array("status" => false);
 
-//        $latitud = -11.995679;
-//        $longitud = -77.008658;
+        $latitud = -11.995679;
+        $longitud = -77.008658;
 
         $query = 'select `idrestaurante`, `nombre`, `telefonos`, `tipo_restaurante`, `horario_restaurante`, `direccion`, `latitud`, `longitud`, `foto`, '
                 . '(DEGREES(acos(sin(radians('.$latitud.')) * sin(radians(`latitud`)) + cos(radians('.$latitud.')) *  cos(radians(`latitud`)) * cos(radians('.$longitud.') - radians(`longitud`)))) * 111133.84) as distancia '
@@ -50,9 +50,15 @@ final class JSON_API_Restaurante_Controller {
         
         $result = $wpdb->get_results($query);
         
+        foreach ($result as $key => $value) {
+            $result[$key]->idrestaurante = (int)$result[$key]->idrestaurante;
+            $result[$key]->latitud = (double)$result[$key]->latitud;
+            $result[$key]->longitud = (double)$result[$key]->longitud;
+        }
+        
         return array(
             'count' => count($result),
-            'results' => print $result
+            'results' => $result
         );
     }
     
@@ -69,7 +75,12 @@ final class JSON_API_Restaurante_Controller {
 
         $query = 'SELECT `idplato`,`nombre`,`tipo`, `precio`, `foto`, `isentrada`, `idrestaurante` FROM `plato` WHERE `estado` = 1 and `idrestaurante` = ' .$idrestaurante; // 1KM
         
-//        echo var_dump($query);die();
+        foreach ($result as $key => $value) {
+            $result[$key]->idplato = (int)$result[$key]->idplato;
+            $result[$key]->precio = (double)$result[$key]->precio;
+            $result[$key]->isentrada = (int)$result[$key]->isentrada;
+            $result[$key]->idrestaurante = (int)$result[$key]->idrestaurante;
+        }
 
         $result = $wpdb->get_results($query);
         
