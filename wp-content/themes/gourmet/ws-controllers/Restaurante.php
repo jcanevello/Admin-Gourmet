@@ -37,10 +37,10 @@ final class JSON_API_Restaurante_Controller {
         $longitud = isset($data->longitud) ? $data->longitud : NULL;
         
         if (empty($latitud) || empty($longitud)) 
-//            return array("status" => false);
+            return array("status" => false);
 
-        $latitud = -11.995679;
-        $longitud = -77.008658;
+//        $latitud = -11.995679;
+//        $longitud = -77.008658;
 
         $query = 'select `idrestaurante`, `nombre`, `telefonos`, `tipo_restaurante`, `horario_restaurante`, `direccion`, `latitud`, `longitud`, `foto`, '
                 . '(DEGREES(acos(sin(radians('.$latitud.')) * sin(radians(`latitud`)) + cos(radians('.$latitud.')) *  cos(radians(`latitud`)) * cos(radians('.$longitud.') - radians(`longitud`)))) * 111133.84) as distancia '
@@ -192,5 +192,34 @@ final class JSON_API_Restaurante_Controller {
         
         return array("status" => true); 
         
+    }
+    
+    public function get_favorito() 
+    {
+        global $wpdb;
+        
+        $data = json_decode(file_get_contents('php://input'));
+        
+        $idRestaurante = isset($data->idRestaurante) ? $data->idRestaurante : NULL;
+        
+        if (empty($idRestaurante)) 
+            return array("status" => false);
+
+        $query = 'select `idrestaurante`, `nombre`, `telefonos`, `tipo_restaurante`, `horario_restaurante`, `direccion`, `latitud`, `longitud`, `foto` '
+                . 'from restaurant '
+                . 'where and `estado` = ' . $idRestaurante;
+        
+        $result = $wpdb->get_results($query);
+        
+        foreach ($result as $key => $value) {
+            $result[$key]->idrestaurante = (int)$result[$key]->idrestaurante;
+            $result[$key]->latitud = (double)$result[$key]->latitud;
+            $result[$key]->longitud = (double)$result[$key]->longitud;
+        }
+        
+        return array(
+            'count' => count($result),
+            'results' => $result
+        );
     }
 }
