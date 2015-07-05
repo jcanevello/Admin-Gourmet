@@ -207,7 +207,7 @@ final class JSON_API_Restaurante_Controller {
 
         $query = 'select `idrestaurante`, `nombre`, `telefonos`, `tipo_restaurante`, `horario_restaurante`, `direccion`, `latitud`, `longitud`, `foto` '
                 . 'from restaurant '
-                . 'where and `idrestaurante` = ' . $idRestaurante;
+                . 'where `idrestaurante` = ' . $idRestaurante;
         
         $result = $wpdb->get_results($query);
         
