@@ -43,22 +43,22 @@ function formulario_restaurant_content($post)
 ?>
     <div>        
         <label for="r-direccion">Dirección:</label>
-        <input name="r-direccion" type="text" value="<?php echo isset($result[0]) ? $result[0]->direccion : '' ?>"><br><br>
+        <input name="r-direccion" type="text" value="<?php echo isset($result[0]) ? $result[0]->direccion : '' ?>" required="true"><br><br>
         
         <label for="r-telefono">Teléfono:</label>
-        <input name="r-telefono" type="text" value="<?php echo isset($result[0]) ? $result[0]->telefonos : ''  ?>"><br><br>
+        <input name="r-telefono" type="text" value="<?php echo isset($result[0]) ? $result[0]->telefonos : ''  ?>" required="true"><br><br>
         
         <label for="r-tipo">Tipo:</label>
-        <input name="r-tipo" type="text" value="<?php echo isset($result[0]) ? $result[0]->tipo_restaurante : ''  ?>"><br><br>
+        <input name="r-tipo" type="text" value="<?php echo isset($result[0]) ? $result[0]->tipo_restaurante : ''  ?>" required="true"><br><br>
         
         <label for="r-horario">Horario:</label>
-        <input name="r-horario" type="text" value="<?php echo isset($result[0]) ? $result[0]->horario_restaurante : ''  ?>"><br><br>
+        <input name="r-horario" type="text" value="<?php echo isset($result[0]) ? $result[0]->horario_restaurante : ''  ?>" required="true"><br><br>
         
         <h4>Ubicación</h4>
         <label for="r-latitud">Latitud:</label>
-        <input name="r-latitud" type="number" step="any" value="<?php echo isset($result[0]) ? $result[0]->latitud : ''  ?>">
+        <input name="r-latitud" type="number" step="any" value="<?php echo isset($result[0]) ? $result[0]->latitud : ''  ?>" required="true">
         <label for="r-longitud">Longitud:</label>
-        <input name="r-longitud" type="number" step="any" value="<?php echo isset($result[0]) ? $result[0]->longitud : ''  ?>"><br><br>
+        <input name="r-longitud" type="number" step="any" value="<?php echo isset($result[0]) ? $result[0]->longitud : ''  ?>" required="true"><br><br>
         <hr>
         
         <div class="gtabs-panel">
@@ -165,7 +165,7 @@ function formulario_restaurant_save($post_id)
     $latitud = '';
     $longitud = '';
     $img_path = wp_get_attachment_image_src(get_post_thumbnail_id($post_id), 'thumbnail');
-    $img = empty($img_path) ? '' : current($img_path);
+    $img = empty($img_path) ? home_url() . '/wp-content/themes/gourmet/img/image-default.jpg' : current($img_path);
     
 //    echo var_dump($img);
 //    die();
